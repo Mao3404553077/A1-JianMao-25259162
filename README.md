@@ -20,7 +20,7 @@ operation, including the operations that must fail.
 ## 2. Project structure
 
 ```
-A1-jmao13/
+A1-JianMao-25259162/
 ├── src/
 │   ├── AssignmentOne.java         entry point and the Parts 3, 4 and 6 demonstration
 │   ├── HealthProfessional.java    Part 1 - abstract base class
@@ -86,7 +86,7 @@ or simply:
 javac receives a literal `*.java` path. The scripts and the IDE extensions build the
 file list for you.
 
-IntelliJ IDEA: open the `A1-jmao13` folder, mark `src` as **Sources Root**, then run
+IntelliJ IDEA: open the `A1-JianMao-25259162` folder, mark `src` as **Sources Root**, then run
 `AssignmentOne`. Eclipse: create a Java project, point it at `src`, run
 `AssignmentOne`.
 
