@@ -237,3 +237,10 @@ collection after each change.
   the system does not model patient availability.
 * There is no waiting list, no recurring appointments and no cancellation history,
   because none of these are required by the brief.
+
+## 8. Submission
+
+* Repository: <https://github.com/Mao3404553077/A1-JianMao-25259162>
+* WakaTime report: `A1-JianMao-25259162-WakaTime.png` (28 h 18 m, Java 99.9%)
+* Video, GenAI declaration and the project archive are submitted through MySCU.
+
