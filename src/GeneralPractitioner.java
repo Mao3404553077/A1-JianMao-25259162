@@ -1,12 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Set;
 
-/**
- * Part 2 - a general practitioner, the one type the brief requires.
- *
- * The class only adds what is unique to a GP: whether the GP is accepting new
- * patients. Everything else is inherited from Doctor and HealthProfessional.
- */
+// A GP: a doctor who may or may not be taking new patients.
 public class GeneralPractitioner extends Doctor {
 
     private final boolean acceptingNewPatients;
@@ -17,7 +12,6 @@ public class GeneralPractitioner extends Doctor {
         this.acceptingNewPatients = acceptingNewPatients;
     }
 
-    /** Every GP created with this constructor is accepting new patients by default. */
     public GeneralPractitioner(String id, String name, String practitionerNumber) {
         super(id, name, practitionerNumber);
         this.acceptingNewPatients = true;

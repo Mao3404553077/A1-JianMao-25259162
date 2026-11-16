@@ -1,14 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Set;
 
-/**
- * Part 2 - the shared superclass for medical doctors.
- *
- * This extra level in the hierarchy shows that inheritance can be more than one
- * level deep: GeneralPractitioner and Specialist both reuse the code in
- * HealthProfessional and the prescribing behaviour defined here, and neither of
- * them repeats it.
- */
+// Doctors share a registration number and the ability to prescribe.
 public abstract class Doctor extends HealthProfessional {
 
     private final String practitionerNumber;
@@ -18,7 +11,6 @@ public abstract class Doctor extends HealthProfessional {
         this.practitionerNumber = validatePractitionerNumber(practitionerNumber);
     }
 
-    /** Convenience constructor: doctors in this clinic work Monday to Friday. */
     protected Doctor(String id, String name, String practitionerNumber) {
         super(id, name);
         this.practitionerNumber = validatePractitionerNumber(practitionerNumber);
@@ -28,11 +20,7 @@ public abstract class Doctor extends HealthProfessional {
         return practitionerNumber;
     }
 
-    /**
-     * Behaviour that is common to every doctor and that the clinic asked for:
-     * doctors can prescribe drugs. The method returns a message instead of printing,
-     * so the caller decides how the result is presented.
-     */
+    // Kept here so GP and Specialist do not each write it.
     public String prescribe(String medicationName) {
         String medication = (medicationName == null) ? "" : medicationName.trim();
         if (medication.isEmpty()) {

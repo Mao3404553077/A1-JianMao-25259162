@@ -1,13 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Set;
 
-/**
- * Part 2 - a specialist such as a cardiologist or a paediatrician.
- *
- * The specialty field is the only additional state. The role name is built from
- * it, so a single class covers every specialty without creating a class per
- * specialty.
- */
+// A specialist such as a cardiologist or paediatrician; the specialty is just a field.
 public class Specialist extends Doctor {
 
     private final String specialty;

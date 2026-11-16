@@ -1,13 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Set;
 
-/**
- * Part 2 - a dietitian, the fourth specific type.
- *
- * This class exists mainly to show that adding a new kind of health professional
- * costs one small subclass and no change to the appointment code, because
- * appointments refer to the HealthProfessional supertype.
- */
+// Fourth type, mainly to show that one more type costs one small class.
 public class Dietitian extends HealthProfessional {
 
     private final String dietaryFocus;

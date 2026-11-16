@@ -5,17 +5,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-/**
- * AssignmentOne - the entry point for the PROG2004 Assessment 1 submission.
- *
- * The main method builds a small, scripted simulation of the health service's
- * appointment system. It creates health professionals of several types (Parts 1 to
- * 3), models and prints an appointment (Part 4), manages a collection of
- * appointments (Part 5) and demonstrates the whole system end to end, including
- * the cases that must fail (Part 6).
- *
- * Run with:  java AssignmentOne
- */
+// Demonstration for all six parts. Run this class.
 public class AssignmentOne {
 
     private static final String HEAVY =
@@ -39,10 +29,7 @@ public class AssignmentOne {
         System.out.println(HEAVY);
     }
 
-    // ------------------------------------------------------------------
-    // Part 3 - working with health professional objects
-    // ------------------------------------------------------------------
-
+    // Part 3: one list, one loop, each object prints itself.
     private static void demonstratePartThree(List<HealthProfessional> professionals) {
         section("PART 3 - Working with health professional objects");
 
@@ -77,10 +64,7 @@ public class AssignmentOne {
         System.out.println("  to the list, or to any of the appointment code.");
     }
 
-    // ------------------------------------------------------------------
-    // Part 4 - modelling an appointment
-    // ------------------------------------------------------------------
-
+    // Part 4: one appointment can hold any type of professional.
     private static void demonstratePartFour(List<HealthProfessional> professionals,
                                             List<Patient> patients) {
         section("PART 4 - Modelling an appointment");
@@ -108,10 +92,7 @@ public class AssignmentOne {
         System.out.println(" times is correct without any extra parsing.");
     }
 
-    // ------------------------------------------------------------------
-    // Parts 5 and 6 - managing and demonstrating appointments
-    // ------------------------------------------------------------------
-
+    // Parts 5 and 6: booking, filtering, sorting, cancelling and the failures.
     private static void demonstratePartsFiveAndSix(List<HealthProfessional> professionals,
                                                    List<Patient> patients) {
         AppointmentManager manager = new AppointmentManager();
@@ -197,16 +178,7 @@ public class AssignmentOne {
         System.out.println("  - display the updated collection after each cancellation");
     }
 
-    // ------------------------------------------------------------------
-    // Object creation and small helpers
-    // ------------------------------------------------------------------
-
-    /**
-     * Creates the health professionals used in the demonstration: three general
-     * practitioners, two specialists, two nurses and one dietitian. All of them are
-     * stored as HealthProfessional, which is what lets the rest of the program treat
-     * them in the same way.
-     */
+    // One of each type, plus two extra GPs as the brief suggests.
     private static List<HealthProfessional> createHealthProfessionals() {
         List<HealthProfessional> professionals = new ArrayList<>();
         professionals.add(new GeneralPractitioner("1001", "Dr Alice Nguyen",
@@ -237,19 +209,12 @@ public class AssignmentOne {
         return patients;
     }
 
-    /**
-     * Monday to Friday, plus today. Bookings can only be made for the current day,
-     * so the demonstration always includes today in the roster, whatever day the
-     * program is run on. The roster itself is an EnumSet, a collection designed for
-     * a fixed set of enum values.
-     */
     private static EnumSet<DayOfWeek> rosterIncludingToday() {
         EnumSet<DayOfWeek> days = EnumSet.range(DayOfWeek.MONDAY, DayOfWeek.FRIDAY);
         days.add(LocalDate.now().getDayOfWeek());
         return days;
     }
 
-    /** A roster that deliberately excludes today, used to test the working-day check. */
     private static EnumSet<DayOfWeek> rosterForTheNextTwoDays() {
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         EnumSet<DayOfWeek> days = EnumSet.noneOf(DayOfWeek.class);
@@ -268,7 +233,6 @@ public class AssignmentOne {
         throw new IllegalArgumentException("No health professional with ID " + id);
     }
 
-    /** Counts the concrete classes in use, so two specialists are still one type. */
     private static int countProfessionalTypes(List<HealthProfessional> professionals) {
         List<String> types = new ArrayList<>();
         for (HealthProfessional professional : professionals) {

@@ -5,30 +5,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Part 5 - manages the whole collection of appointments in one place.
- *
- * An ArrayList is used because the clinic needs to keep every appointment, view
- * them in any order, filter them and sort them. An ArrayList keeps insertion order,
- * allows two appointments at the same time for different professionals, and is the
- * simplest structure that supports all of the required operations. A HashSet would
- * lose the order needed for the sorted view, and a HashMap is not required because
- * appointments are already unique by professional and time.
- *
- * Every operation returns a String: either a confirmation message or a warning
- * message when the action cannot be performed, as the brief asks for.
- */
+// Holds every appointment and answers the questions the clinic asks.
 public class AppointmentManager {
 
     private final List<Appointment> appointments = new ArrayList<>();
 
-    /**
-     * Books an appointment after checking that the booking is complete, that the
-     * time is a real clinic slot, that the professional works today and that the
-     * professional is not already booked at that time.
-     *
-     * @return a confirmation message, or a warning message explaining the problem
-     */
+    // Returns a message: either confirmed, or a warning saying what went wrong.
     public String addAppointment(Patient patient, HealthProfessional professional, LocalTime time) {
         if (patient == null || professional == null || time == null) {
             return "Warning: a patient, a health professional and a time are all required "
@@ -39,16 +21,15 @@ public class AppointmentManager {
                     + ClinicSchedule.describe() + ").";
         }
 
-        // Bookings are only made for the current day, so the professional must be
-        // rostered on today.
+        // Bookings are for today only, so the professional has to work today.
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         if (!professional.worksOn(today)) {
             return "Warning: " + professional.getName() + " (ID " + professional.getId()
                     + ") does not work on " + formatDay(today) + ".";
         }
 
-        // The same professional must never be booked twice in the same slot.
         Appointment candidate = new Appointment(patient, professional, time);
+        // The same professional must not be booked twice in the same slot.
         for (Appointment existing : appointments) {
             if (existing.clashesWith(candidate)) {
                 return "Warning: " + professional.getName() + " (ID " + professional.getId()
@@ -63,24 +44,22 @@ public class AppointmentManager {
                 + patient.getName() + ".";
     }
 
-    /** All appointments, in the order they were booked. */
     public List<Appointment> getAllAppointments() {
         return Collections.unmodifiableList(new ArrayList<>(appointments));
     }
 
-    /** All appointments, earliest first. */
     public List<Appointment> getAllAppointmentsSortedByTime() {
         return sortByTime(appointments);
     }
 
-    /** Returns a sorted copy, so the caller's list is never changed by this call. */
+    // Sort a copy so the original order is not changed.
     public List<Appointment> sortByTime(List<Appointment> source) {
         List<Appointment> sorted = new ArrayList<>(source);
         Collections.sort(sorted);
         return sorted;
     }
 
-    /** Every appointment for one health professional, identified by ID. */
+    // Filter by professional id.
     public List<Appointment> findByProfessionalId(String professionalId) {
         List<Appointment> matches = new ArrayList<>();
         if (professionalId == null) {
@@ -95,7 +74,7 @@ public class AppointmentManager {
         return matches;
     }
 
-    /** Every appointment for one patient, identified by mobile number. */
+    // Filter by the patient's mobile number.
     public List<Appointment> findByPatientMobileNumber(String mobileNumber) {
         List<Appointment> matches = new ArrayList<>();
         for (Appointment appointment : appointments) {
@@ -106,11 +85,7 @@ public class AppointmentManager {
         return matches;
     }
 
-    /**
-     * Cancels the appointment for a professional at a time.
-     *
-     * @return a confirmation, or a warning when no such appointment exists
-     */
+    // Find it by professional id and time; warn if it is not there.
     public String cancelAppointment(String professionalId, LocalTime time) {
         if (professionalId == null || time == null) {
             return "Warning: a professional ID and an appointment time are required to cancel.";
@@ -131,10 +106,7 @@ public class AppointmentManager {
                 + ClinicSchedule.format(time) + ".";
     }
 
-    /**
-     * Cancels every appointment belonging to one patient. Returning the number of
-     * cancelled appointments makes the outcome clear when a patient had several.
-     */
+    // A patient may have more than one booking, so remove all of them.
     public String cancelAppointmentsForPatient(String mobileNumber) {
         List<Appointment> matches = findByPatientMobileNumber(mobileNumber);
         if (matches.isEmpty()) {
@@ -152,7 +124,6 @@ public class AppointmentManager {
         return message.toString();
     }
 
-    /** Prints a titled, numbered list, or a clear message when nothing matches. */
     public void printAppointments(String heading, List<Appointment> appointmentsToShow) {
         System.out.println(heading);
         if (appointmentsToShow.isEmpty()) {
@@ -170,7 +141,6 @@ public class AppointmentManager {
         return appointments.size();
     }
 
-    /** Turns THURSDAY into Thursday, so warning messages read naturally. */
     private static String formatDay(DayOfWeek day) {
         String name = day.toString();
         return name.charAt(0) + name.substring(1).toLowerCase();

@@ -1,12 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Set;
 
-/**
- * Part 2 - a nurse.
- *
- * A nurse is not a doctor, so this class extends HealthProfessional directly and
- * gains the shared ID, name and roster without inheriting prescribing behaviour.
- */
+// A nurse is not a doctor, so this extends HealthProfessional directly.
 public class Nurse extends HealthProfessional {
 
     private final String assignedWard;
@@ -35,7 +30,7 @@ public class Nurse extends HealthProfessional {
         return "takes blood samples, monitors patients and administers medication under supervision";
     }
 
-    /** A behaviour that is unique to nurses in this clinic. */
+    // Something only a nurse can do.
     public String takeBloodSample() {
         return getName() + " takes a blood sample and labels it for the laboratory.";
     }
